@@ -1,5 +1,5 @@
 #E - epsilon
-#S - sigma
+#S - delta
 import itertools
 
 

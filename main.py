@@ -20,6 +20,8 @@ def determineTransitions(parts, Q, E):
 
         if state1 not in Q:
             raise Exception(state1 + " is not in the set of states!")
+        if route == "epsilon":
+            raise Exception("Transition of " + state1 + " and epsilon is not allowed!")
         if route not in E:
             raise Exception(route + " is not defined in the alphabet!")
 
@@ -34,10 +36,16 @@ def readFromFileAndVerify(fileName):
     with open(fileName) as file:
         Q = transformLine(file.readline())
         E = transformLine(file.readline())
+
+        for element in Q:
+            if element in E:
+                raise Exception("The set of states cannot have elements of the alphabet!")
+
         try:
             S = determineTransitions(transformLine(file.readline()), Q, E)
         except Exception as e:
             print(e)
+            exit()
         # S = parseTransitions(prseLine(''.join([line for line in file])))
         q0 = file.readline().split('=')[1].strip()
 
@@ -51,6 +59,8 @@ def readFromFileAndVerify(fileName):
         for state in F:
             if state not in Q:
                 raise Exception("State " + state + " is not in the set of states!")
+
+
 
         return FA(Q, E, S, q0, F)
 
@@ -66,7 +76,11 @@ if __name__ == "__main__":
         FA = readFromFileAndVerify('fa.in')
         print("It is a valid FA!")
     except Exception as e:
+        FA = None
         print(e)
+
+    if FA is None:
+        exit()
 
     try:
         FA.isDFA()
