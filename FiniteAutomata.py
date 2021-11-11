@@ -49,6 +49,9 @@ class FA:
             if ok == 0:
                 raise Exception("Sequence is not accepted by the FA!")
 
+        if currentState not in self.F:
+            raise Exception("Sequence is not accepted by the FA!")
+
     def toString(self):
         return "Q: " + str(self.Q) + "\n" + "E: " + str(self.E) + "\n" + "S: " + str(self.S) + "\n" + "q0: " + str(self.q0) + "\n" + "F: " + str(self.F)
 
