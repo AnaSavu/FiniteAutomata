@@ -59,11 +59,11 @@ class FA:
                 print(e)
                 exit()
             # S = parseTransitions(prseLine(''.join([line for line in file])))
-            q0 = file.readline().split('=')[1].strip()
+            q0 = self.transformLine(file.readline())
 
             if len(q0) != 1:
                 raise Exception("There are more the one initial state!")
-            if q0 not in Q:
+            if q0[0] not in Q:
                 raise Exception("The initial state is not in the set of states!")
 
             F = self.transformLine(file.readline())
@@ -118,7 +118,7 @@ class FA:
             # compare(a[0], b[0])
 
     def isSequenceAcceptedByFA(self, sequence):
-        currentState = self.q0
+        currentState = self.q0[0]
 
         for i in range(len(sequence)):
             posi = sequence[i]
