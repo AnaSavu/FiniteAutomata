@@ -1,4 +1,4 @@
-from FiniteAutomata import *
+from FiniteAutomaton import *
 
 def printMenu():
     print("Menu:")
